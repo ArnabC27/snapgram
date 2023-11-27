@@ -10,12 +10,14 @@ import { z } from 'zod'
 import Loader from '@/components/shared/Loader'
 import { createUserAccount } from '@/lib/appwrite/api'
 import { useToast } from "@/components/ui/use-toast"
+import { useCreateUserAccountMutation } from '@/lib/react-query/queriesAndMutations'
 
 
 
 const SignupForm = () => {
     const isLoading = false;
     const { toast } = useToast()
+    const { mutateAsync, isLoading } = useCreateUserAccountMutation
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof SignupValidation>>({
