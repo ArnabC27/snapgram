@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useForm } from 'react-hook-form'
-import { SignupValidation as SigninValidation } from '@/lib/validation'
+import { SigninValidation } from '@/lib/validation'
 import { z } from 'zod'
 import Loader from '@/components/shared/Loader'
 import { useToast } from "@/components/ui/use-toast"
@@ -19,7 +19,7 @@ const SigninForm = () => {
     const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
     const navigate = useNavigate();
     
-    const { mutateAsync: signInAccount, isPending } = useSignInAccount();
+    const { mutateAsync: signInAccount } = useSignInAccount();
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof SigninValidation>>({
@@ -92,12 +92,12 @@ const SigninForm = () => {
                             <div className='flex-center gap-2'>
                                 <Loader /> Loading...
                             </div>
-                        ) : 'Sign Up'}
+                        ) : 'Sign In'}
                     </Button>
 
                     <p className='text-small-regular text-light-2 text-center mt-2'>
-                        Already have an account?
-                        <Link to='/sign-in' className='text-primary-500 text-small-semibold ml-1'> Log In</Link>
+                        Don't have an account?
+                        <Link to='/sign-up' className='text-primary-500 text-small-semibold ml-1'> Sign Up</Link>
                     </p>
                 </form>
             </div>
