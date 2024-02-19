@@ -12,6 +12,7 @@ import { Models } from 'appwrite'
 import { useUserContext } from '@/context/AuthContext'
 import { useToast } from '../ui/use-toast'
 import { useNavigate } from 'react-router-dom'
+import { useCreatePost } from '@/lib/react-query/queriesAndMutations'
 
 type PostFormProps = {
     post?: Models.Document;
@@ -31,16 +32,16 @@ const PostForm = ({ post }: PostFormProps) => {
             caption: post ? post?.caption : "",
             file: [],
             location: post ? post?.location : "",
-            tags: post ? post.tags.join(',') : ''
+            tags: post ? post.tags.join(',') : '',
         },
     })
 
     // 2. Define a submit handler.
-    async function onSubmit(values: z.infer<typeof PostValidation>) {
+    async function onSubmit(value: z.infer<typeof PostValidation>) {
         const newPost = await CreatePost({
-            ...values,
+            ...value,
             userId: user.id,
-        })
+        });
 
         if(!newPost) {
             toast({
